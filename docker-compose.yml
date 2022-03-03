@@ -14,6 +14,7 @@ services:
       API_TOKEN: #TelegramBot Token
       GOOGLE_KEY: #key из таблицы google
       GOOGLE_TABLE_HALL: #key из таблицы google
+      GOOGLE_JSON: #Навазние файла
     volumes:
       - /home/vestimy/project/notification_bot/bot:/usr/src/app/
     command: >
