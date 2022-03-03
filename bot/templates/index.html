@@ -1,0 +1,13 @@
+{% for item in glist %}
+<b>🗓 {{ item.date.strftime('%d.%m.%Y') }}</b>
+    <u><i>Артист: </i></u>{% if item.artist %}{{ item.artist }}{% endif %}
+    <u><i>Город: </i></u>{% if item.city %}{{ item.city }}{% endif %}
+    <u><i>Площадка: </i></u>{% if item.playground %}{{ item.playground }}{% endif %}
+    <u><i>Исполнители: </i></u>{% if item.executor %}{{ item.executor }}{% endif %}
+    <u><i>Примечание: </i></u>{% if item.note %}{{ item.note }}{% endif %}
+    <u><i>Менеджер: </i></u>{% if item.manager %}{{ item.manager }}{% endif %}
+----------------------------------------------{% endfor %}
+Команды:
+/start
+/week - Расписание на неделю
+/playground
