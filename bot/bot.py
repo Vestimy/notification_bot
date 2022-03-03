@@ -131,12 +131,12 @@ async def cmd_week(message: types.Message):
 
 @dp.message_handler(commands=['playground', 'площадки'])
 async def cmd_test(message: types.Message):
-    await message.answer('Posts', reply_markup=get_keyboard(ConcertHall.get_paginate_all()))
+    await message.answer('Площадки', reply_markup=get_keyboard(ConcertHall.get_paginate_all()))
 
 
 @dp.callback_query_handler(posts_cb.filter(action='list'))
 async def query_show_list(query: types.CallbackQuery):
-    await query.message.edit_text('Posts', reply_markup=get_keyboard(ConcertHall.get_paginate_all()))
+    await query.message.edit_text('Площадки', reply_markup=get_keyboard(ConcertHall.get_paginate_all()))
 
 
 @dp.callback_query_handler(posts_cb.filter(action='view'))
