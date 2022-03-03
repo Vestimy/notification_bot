@@ -188,7 +188,7 @@ class Users(Base):
         #     return False
 
     @staticmethod
-    def get_all_nesletter():
+    def get_all_newsletter():
         users = Users.query.filter(Users.newsletter == True).all()
         return users
 
@@ -197,6 +197,13 @@ class Users(Base):
         users = Users.query.filter(Users.last_name == alias_last_name).first()
         return users
 
+    @staticmethod
+    def get_alias(alias):
+        user = Users.query.filter(Users.alias == alias).first()
+        return user
+
+    def __repr__(self):
+        return self.alias
 
 class ConcertHall(Base):
     __tablename__ = 'concerthall'

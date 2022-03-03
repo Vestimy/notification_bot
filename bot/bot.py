@@ -282,7 +282,7 @@ async def process_gender(message: types.Message, state: FSMContext):
                 md.text('Сокращенное:', data['alias']),
                 md.text('Все изменения:', data['bool']),
                 md.text('Расписание на неделю: /week'),
-                md.text('Список площадок: /playg'),
+                md.text('Список площадок: /playground'),
                 sep='\n',
             ),
             reply_markup=markup,
@@ -302,7 +302,7 @@ async def message_not_modified_handler(update, error):
     return True  # errors_handler must return True if error was handled correctly
 
 
-async def get_update_sheets():
+def get_update_sheets():
     results = sheets.get_sheet_table()
     results = sheets.search_data_changes_sheet(results)
     results = sheets.chech_in(results)
@@ -310,10 +310,26 @@ async def get_update_sheets():
 
 
 async def update_price():
-    result = await get_update_sheets()
+    result = get_update_sheets()
+    newsletter_alias = []
+    not_newsletter = {}
     if result is not None:
-        users = Users.get_all_nesletter()
+        for i in result:
+            res, _ = i
+            executors = res.executor.split(' ')
+            for executor in executors:
+                user = Users.get_alias(executor) or Users.get_user_alias_for_last_name(executor)
+                if user and user.newsletter is False:
+                    if not user.user_id in not_newsletter.keys():
+                        not_newsletter[user.user_id] = [i]
+                    else:
+                        not_newsletter.get(user.user_id).append(i)
+
+        for user_id in not_newsletter:
+            await bot.send_message(user_id, my_func('sheets_update.html', glist=not_newsletter.get(user_id)))
+        users = Users.get_all_newsletter()
         for user in users:
+            newsletter_alias.append(user.alias)
             await bot.send_message(user.user_id, my_func('sheets_update.html', glist=result))
 
 
@@ -323,8 +339,8 @@ def repeat(coro, loop):
 
 
 if __name__ == '__main__':
+    print(Config.DELAY)
     DELAY = Config.DELAY
     loop = asyncio.get_event_loop()
     loop.call_later(DELAY, repeat, update_price, loop)
     executor.start_polling(dp, skip_updates=True, loop=loop)
-    executor.start_polling(dp, skip_updates=True)

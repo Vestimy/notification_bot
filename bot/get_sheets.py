@@ -118,14 +118,7 @@ class GetSheets:
             else:
                 bool = False
 
-            if i.city == '' and i.artist == '' and i.playground == '' and i.executor == '' and i.note == '' and i.manager == '':
-                message = """
-                Добавлено:
-                """
-            else:
-                message = """
-                Изменено:
-                """
+
             i.km = n[0]
             i.city = n[2]
             i.artist = n[3]
