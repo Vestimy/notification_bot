@@ -312,7 +312,6 @@ async def get_update_sheets():
 async def update_price():
     result = await get_update_sheets()
     if result is not None:
-        print(result)
         users = Users.get_all_nesletter()
         for user in users:
             await bot.send_message(user.user_id, my_func('sheets_update.html', glist=result))
