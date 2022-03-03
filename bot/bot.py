@@ -324,7 +324,7 @@ def repeat(coro, loop):
 
 
 if __name__ == '__main__':
-    DELAY = 12
+    DELAY = Config.DELAY
     loop = asyncio.get_event_loop()
     loop.call_later(DELAY, repeat, update_price, loop)
     executor.start_polling(dp, skip_updates=True, loop=loop)
