@@ -63,7 +63,7 @@ def get_keyboard(data) -> types.InlineKeyboardMarkup:
     for item in data:
         markup.add(
             types.InlineKeyboardButton(
-                item.title,
+                f'{item.title} - {item.city}',
                 callback_data=posts_cb.new(id=item.id, action='view')),
         )
 
