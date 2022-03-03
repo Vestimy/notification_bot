@@ -8,7 +8,7 @@ class Config():
     DB_BASE = getenv("DB_BASE")
     GOOGLE_JSON = getenv("GOOGLE_JSON")
     SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_BASE}"
-    DELAY = int(getenv('DELAY'))*1
+    DELAY = int(getenv('DELAY'))*60
 
     GOOGLE_KEY = getenv('GOOGLE_KEY')
     GOOGLE_TABLE_HALL = getenv('GOOGLE_TABLE_HALL')
